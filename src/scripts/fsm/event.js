@@ -1,6 +1,4 @@
 (function (global) {
-    var Event;
-
     /**
      * @module fsm
      * @submodule fsm.classes
@@ -14,15 +12,17 @@
      * @param {State} nextState
      * @param {Function} action
      */
-    Event = global.FSM.Event = function (nextState, action) {
+    global.FSM.Event = function (name, nextState, action) {
         // validate params
         // --------------------------------------------------------------------
 
+        if (!name) { throw "'name' should be defined"; }
         if (!nextState) { throw "'nextState' should be defined"; }
         if (!(typeof nextState === "string" || nextState instanceof Function)) { throw "'nextState' should be a 'string' or 'function'"; }
 
         // --------------------------------------------------------------------
 
+        this.name = name;
         this.nextState = nextState instanceof Function ? nextState : function () { return nextState; };
         this.action = action || function () {};
     };

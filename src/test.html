@@ -1,52 +1,54 @@
 <html>
     <title>fsm</title>
     <script src="./scripts/fsm/event.js"></script>
+    <script src="./scripts/fsm/eventList.js"></script>
     <script src="./scripts/fsm/state.js"></script>
     <script src="./scripts/fsm/stateMachine.js"></script>
     <script>
 
         var Event = FSM.Event,
+            EventList = FSM.EventList,
             State = FSM.State,
             Machine = FSM.StateMachine,
             states,
             fsm;
 
         states = [
-            new State("initial", {
-                    "ok": new Event("state1", function () {
+            new State("initial", new EventList(
+                    new Event("ok", "state1", function () {
                         console.log("going to 'state1' from 'initial' via event 'ok'");
                     })
-                }, function (prevState) {
+                ), function (prevState) {
                     console.log("came to 'initial' from " + (prevState ? prevState.name : "the beginning"));
                 }),
 
-            new State("state1", {
-                    "ok": new Event("state2", function () {
+            new State("state1", new EventList(
+                    new Event("ok", "state2", function () {
                         console.log("going to 'state2' from 'state1' via event 'ok'");
                     }),
-                    "back": new Event("initial", function () {
+                    new Event("back", "initial", function () {
                         console.log("going to 'initial' from 'state1' via event 'back'");
                     })
-                }, function (prevState) {
+                ), function (prevState) {
                     console.log("came to 'state1' from " + prevState.name);
                 }),
 
-            new State("state2", {
-                "ok": new Event(function () {
+            new State("state2", new EventList(
+                new Event("ok", function () {
                     return (new Date()).getMilliseconds() % 2 === 1 ? "state1" : "initial";
                 }, function () {
                     console.log("going to 'initial' from 'state2' via event 'ok:true'");
                 }),
-                "ok:true": new Event("initial", function () {
+                new Event("ok:true", "initial", function () {
                     console.log("going to 'initial' from 'state2' via event 'ok:true'");
                 }),
-                "ok:false": new Event("state2", function () {
+                new Event("ok:false", "state2", function () {
                     console.log("going to 'state2' from 'state2' via event 'ok:false'");
                 }),
-                "back": new Event("state1", function () {
+                new Event("back", "state1", function () {
                     console.log("going to 'state1' from 'state2' via event 'back'");
                 })
-            }, function (prevState) {
+            ), function (prevState) {
                 console.log("came to 'state2' from " + prevState.name);
             })
         ],

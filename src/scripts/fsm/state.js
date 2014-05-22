@@ -1,6 +1,4 @@
 (function (global) {
-    var State;
-
     /**
      * @module fsm
      * @submodule fsm.classes
@@ -12,29 +10,15 @@
      * @class State
      * @constructor
      * @param {String} name
-     * @param {Object} events
+     * @param {Array} events
      * @param {Function} action
      */
-    State = global.FSM.State = function (name, events, action) {
-        var key,
-            i = 0;
-
+    global.FSM.State = function (name, events, action) {
         // validate params
         // --------------------------------------------------------------------
 
-        if (!name || !events) {
-            throw "'name' and 'events' should be defined";
-        } else {
-            for (key in events) {
-                i++;
-
-                if (!(events[key] instanceof global.FSM.Event)) {
-                    throw "All items in 'events' should be instances of Event";
-                }
-            }
-
-            if (i === 0) { throw "At least one event should be defined"; }
-        }
+        if (!name || !events) { throw "'name' and 'events' should be defined"; }
+        if (!(events instanceof global.FSM.EventList)) { throw "'events' should be instance of FSM.EventList"; }
 
         action = action || function () {};
 
