@@ -23,12 +23,12 @@
 
         if (settings.states && settings.states.length > 0 && settings.initialState) {
             if (!(settings.initialState instanceof global.FSM.State)) {
-                throw "'initialState' should be instance of State";
+                throw "'initialState' should be instance of FSM.State";
             }
 
             for (i = 0, len = settings.states.length; i < len; i++) {
                 if (!(settings.states[i] instanceof global.FSM.State)) {
-                    throw "All items in 'states' should be instances of State";
+                    throw "All items in 'states' should be instances of FSM.State";
                 }
             }
         } else {
