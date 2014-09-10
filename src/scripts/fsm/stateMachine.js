@@ -70,7 +70,7 @@
             event = this._currentState.events[eventName],
             stopPropagation;
 
-        this._log("consumeEvent | current state: " + this._currentState.name + ", event name: " + eventName);
+        this._log("consumeEvent | current state: '" + this._currentState.name + "', event name: '" + eventName + "'");
 
         if (!event) {
             this._log("consumeEvent | no '" + eventName + "' in '" + this._currentState.name + "' events");

@@ -29,7 +29,7 @@
             this[arguments[i].name] = arguments[i];
         }
 
-        this.length = arguments.length;
+        Object.defineProperty(this, 'length', { value: len });
     };
 
 })(window);
